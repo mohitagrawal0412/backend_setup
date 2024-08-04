@@ -1,7 +1,5 @@
-import { V2 as cloudinary } from "cloudinary";
-import fs from "fs";
-
 import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
 
 // Configuration
 cloudinary.config({
@@ -21,6 +19,10 @@ const uploadOnCloudinary = async (localFilePath) => {
 
     console.log(response.url);
     console.log("file is uploaded to cloudinary");
+    // fs.unlink(localFilePath); // remove the locally saved temporary file as the
+    // upload operation got failed  }
+    fs.unlinkSync(localFilePath);
+
     return response;
   } catch (error) {
     fs.unlink(localFilePath); // remove the locally saved temporary file as the
@@ -28,5 +30,4 @@ const uploadOnCloudinary = async (localFilePath) => {
     return null;
   }
 };
-export default uploadOnCloudinary;
- 
+export { uploadOnCloudinary };
